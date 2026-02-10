@@ -2,7 +2,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Provider } from 'react-redux';
-// import { store } from '@/store/store';
 import { useEffect } from 'react';
 import { store } from '@/store/store';
 
@@ -18,7 +17,6 @@ const geistMono = Geist_Mono({
 
 function ThemeInitializer() {
   useEffect(() => {
-    // Initialize theme from localStorage
     const theme = localStorage.getItem('theme');
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');

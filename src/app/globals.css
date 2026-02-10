@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -55,7 +55,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -82,20 +82,20 @@ body {
   background: #52525b;
 }
 
-/* Smooth transitions */
+
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-/* Focus styles */
+
 *:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
-/* Selection */
+
 ::selection {
   background-color: #3b82f6;
   color: white;
@@ -106,7 +106,7 @@ body {
   color: #0a0a0a;
 }
 
-/* Animations */
+
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
