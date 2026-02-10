@@ -1,0 +1,52 @@
+{
+  "revenue": [
+    { "month": "Jan", "revenue": 8000 },
+    { "month": "Feb", "revenue": 12000 },
+    { "month": "Mar", "revenue": 14000 },
+    { "month": "Apr", "revenue": 16000 },
+    { "month": "May", "revenue": 18000 },
+    { "month": "Jun", "revenue": 20000 },
+    { "month": "Jul", "revenue": 22000 },
+    { "month": "Aug", "revenue": 24000 },
+    { "month": "Sep", "revenue": 20000 },
+    { "month": "Oct", "revenue": 23000 },
+    { "month": "Nov", "revenue": 25000 },
+    { "month": "Dec", "revenue": 27000 }
+  ],
+  "trafficSources": [
+    { "source": "Organic Search", "visitors": 4500, "percentage": 45 },
+    { "source": "Direct", "visitors": 2500, "percentage": 25 },
+    { "source": "Social Media", "visitors": 1800, "percentage": 18 },
+    { "source": "Referral", "visitors": 800, "percentage": 8 },
+    { "source": "Email", "visitors": 400, "percentage": 4 }
+  ],
+  "orders": [
+    { "month": "Jan", "orders": 120 },
+    { "month": "Feb", "orders": 210 },
+    { "month": "Mar", "orders": 240 },
+    { "month": "Apr", "orders": 200 },
+    { "month": "May", "orders": 280 },
+    { "month": "Jun", "orders": 300 },
+    { "month": "Jul", "orders": 320 },
+    { "month": "Aug", "orders": 310 },
+    { "month": "Sep", "orders": 260 },
+    { "month": "Oct", "orders": 290 },
+    { "month": "Nov", "orders": 330 },
+    { "month": "Dec", "orders": 360 }
+  ],
+  "usersDistribution": [
+    { "name": "Free", "value": 6000 },
+    { "name": "Premium", "value": 4000 },
+    { "name": "Enterprise", "value": 1000 }
+  ],
+  "stats": {
+    "totalRevenue": 229000,
+    "totalUsers": 11000,
+    "orders": 3180,
+    "conversionRate": 3.8,
+    "revenueDelta": 8.6,
+    "usersDelta": -1.2,
+    "ordersDelta": 2.3,
+    "conversionDelta": 0.4
+  }
+}
