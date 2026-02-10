@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Analytics Dashboard
 
-## Getting Started
+A modern, responsive analytics dashboard built with Next.js 16, TypeScript, and Tailwind CSS. Features real-time data visualization, dark mode support, and an intuitive user interface for tracking key business metrics.
 
-First, run the development server:
+## Features
 
+- **Real-time Analytics**: Track revenue, users, orders, and conversion rates with live updates
+- **Interactive Charts**: 
+  - Revenue trends with line charts
+  - Order analytics with bar charts
+  - User distribution with pie charts
+  - Traffic source visualization
+- **Dark Mode**: Seamless theme switching with persistent preferences
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **State Management**: Redux Toolkit for efficient data handling
+- **Type Safety**: Full TypeScript implementation
+- **Modern UI**: Clean interface with Tailwind CSS and custom components
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **State Management**: Redux Toolkit
+- **Charts**: Recharts
+- **HTTP Client**: Axios
+- **Icons**: React Icons
+- **Fonts**: Geist Sans & Geist Mono
+
+## Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/eistiakahmed/analytics_dashboard.git
+cd analytics_dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create a `.env.local` file in the root directory (optional):
+```env
+NEXT_PUBLIC_API_URL=/api
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run clear-cache` - Clear Next.js cache
+- `npm run dev:fresh` - Clear cache and start dev server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Dashboard Features
 
-## Deploy on Vercel
+### KPI Cards
+- Total Revenue with trend indicators
+- Active Users count
+- Order statistics
+- Conversion rate metrics
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Visualizations
+- **Revenue Line Chart**: Monthly revenue trends
+- **Orders Bar Chart**: Order volume analysis
+- **Users Pie Chart**: User distribution by tier (Free, Premium, Enterprise)
+- **Traffic Sources**: Visitor breakdown by channel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### UI Components
+- Collapsible sidebar navigation
+- Theme toggle (Light/Dark mode)
+- Loading skeletons for better UX
+- Toast notifications
+- Responsive header
+
+## Project Structure
+
+```
+analytics_dashboard/
+├── src/
+│   ├── app/
+│   │   ├── api/              # API routes
+│   │   ├── components/       # React components
+│   │   │   └── charts/       # Chart components
+│   │   ├── dashboard/        # Dashboard page
+│   │   └── globals.css       # Global styles
+│   ├── lib/
+│   │   ├── api.ts           # API client
+│   │   └── utils.ts         # Utility functions
+│   ├── mock/
+│   │   └── db.json          # Mock data
+│   └── store/               # Redux store
+├── public/                  # Static assets
+└── package.json
+```
+
+## Customization
+
+### Theme
+The dashboard supports light and dark modes. Theme preference is stored in localStorage and persists across sessions.
+
+### Data Source
+Currently uses mock data from `src/mock/db.json`. To connect to a real API, update the `NEXT_PUBLIC_API_URL` environment variable.
+
+## Deployment
+
+### Vercel (Recommended)
+1. Push your code to GitHub
+2. Import project in [Vercel](https://analytics-dashboard-adminui.vercel.app/)
+3. Deploy with one click
+
+### Other Platforms
+```bash
+npm run build
+npm start
+```
+
+## 📱 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Developer
+
+**Eistiak Ahmed**
+
+-  Email: [eistiakahmedmeraj@gmail.com](mailto:eistiakahmedmeraj@gmail.com)
+-  Phone: +8801560064883
+-  Portfolio: [https://eistiakahmed.netlify.app/](https://eistiakahmed.netlify.app/)
+-  LinkedIn: [linkedin.com/in/eistiak-ahmed](https://www.linkedin.com/in/eistiak-ahmed/)
+- GitHub: [github.com/eistiakahmed](https://github.com/eistiakahmed)
+
+## License
+
+This project is private and proprietary.
+
+## Contributing
+
+This is a personal project. For suggestions or issues, please contact the developer directly.
+
+---
+
+Built with ❤️ by Eistiak Ahmed
