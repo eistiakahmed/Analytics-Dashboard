@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 
+// Force dynamic rendering - no caching
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const revenueData = [
   { month: 'Jan', revenue: 8000 },
   { month: 'Feb', revenue: 12000 },
@@ -18,5 +22,12 @@ const revenueData = [
 export async function GET() {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  return NextResponse.json(revenueData);
+  return NextResponse.json(revenueData, {
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'Surrogate-Control': 'no-store',
+    },
+  });
 }

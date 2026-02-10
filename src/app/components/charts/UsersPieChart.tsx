@@ -10,7 +10,8 @@ import {
 } from 'recharts';
 import { api, UserDistribution } from '@/lib/api';
 import ChartSkeleton from '../ChartSkeleton';
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hook';
+
 
 const sampleData: UserDistribution[] = [
   { name: 'Free', value: 6000 },
@@ -38,7 +39,7 @@ export default function UsersPieChart() {
         }
       } catch (err) {
         if (mounted) {
-          // Use sample data as fallback - no error shown
+          
           console.warn('API not available, using sample data:', err);
         }
       } finally {
@@ -60,7 +61,7 @@ export default function UsersPieChart() {
     return data.filter((d) => d.name.toLowerCase() === userType.toLowerCase());
   }, [data, userType]);
 
-  if (loading) return <ChartSkeleton height="h-48" />;
+  if (loading) return <ChartSkeleton />;
   if (error) {
     return (
       <div className="flex h-48 items-center justify-center text-sm text-red-600">
@@ -70,7 +71,7 @@ export default function UsersPieChart() {
   }
 
   return (
-    <div className="h-48 w-full">
+    <div className="h-65 w-full">
       <ResponsiveContainer>
         <PieChart>
           <Pie
@@ -83,6 +84,7 @@ export default function UsersPieChart() {
             fill="#8884d8"
             label={(entry) => `${entry.name}: ${entry.value}`}
             animationDuration={1000}
+            className=''
           >
             {filteredData.map((entry, index) => (
               <Cell
@@ -92,7 +94,8 @@ export default function UsersPieChart() {
             ))}
           </Pie>
           <Tooltip />
-          <Legend />
+          <Legend/>
+
         </PieChart>
       </ResponsiveContainer>
     </div>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useMemo } from 'react';
 import { api, StatsData } from '@/lib/api';
-import StatsComparison from '../components/StatsComparison';
+
 import TrafficSourceChart from '../components/charts/TrafficSourceChart';
 import UsersPieChart from '../components/charts/UsersPieChart';
 import OrdersBarChart from '../components/charts/OrdersBarChart';
@@ -9,6 +9,9 @@ import KpiCard from '../components/KpiCard';
 import { useAppSelector } from '@/store/hook';
 import RevenueLineChart from '../components/charts/RevenueLineChart';
 import DashboardLayout from '../components/Layout';
+import { TbMoneybag } from 'react-icons/tb';
+import { IoPeopleSharp } from 'react-icons/io5';
+import { BsFillBoxFill, BsGraphUpArrow } from 'react-icons/bs';
 
 const defaultStats: StatsData = {
   totalRevenue: 124320,
@@ -55,7 +58,7 @@ export default function DashboardPage() {
         value: `$${stats.totalRevenue.toLocaleString()}`,
         delta: 8.6,
         positive: true,
-        icon: '💰',
+        icon: <TbMoneybag />,
       },
       {
         id: 2,
@@ -63,7 +66,7 @@ export default function DashboardPage() {
         value: stats.totalUsers.toLocaleString(),
         delta: -1.2,
         positive: false,
-        icon: '👥',
+        icon: <IoPeopleSharp />,
       },
       {
         id: 3,
@@ -71,7 +74,7 @@ export default function DashboardPage() {
         value: stats.orders.toLocaleString(),
         delta: 2.3,
         positive: true,
-        icon: '📦',
+        icon: <BsFillBoxFill />,
       },
       {
         id: 4,
@@ -79,89 +82,26 @@ export default function DashboardPage() {
         value: `${stats.conversionRate}%`,
         delta: 0.4,
         positive: true,
-        icon: '📈',
+        icon: <BsGraphUpArrow />,
       },
     ],
     [stats]
   );
 
-  const handleExportCSV = async () => {
-    try {
-      const [revenue, orders, users, traffic] = await Promise.all([
-        api.getRevenue(),
-        api.getOrders(),
-        api.getUsersDistribution(),
-        api.getTrafficSources(),
-      ]);
-
-      let csv = 'Dashboard Export\n\n';
-
-      csv += 'KPI Metrics\n';
-      csv += 'Metric,Value,Change\n';
-      csv += `Total Revenue,$${stats.totalRevenue.toLocaleString()},+8.6%\n`;
-      csv += `Total Users,${stats.totalUsers.toLocaleString()},-1.2%\n`;
-      csv += `Orders,${stats.orders.toLocaleString()},+2.3%\n`;
-      csv += `Conversion Rate,${stats.conversionRate}%,+0.4%\n\n`;
-
-      csv += 'Revenue Over Time\n';
-      csv += 'Month,Revenue\n';
-      revenue.forEach((item) => {
-        csv += `${item.month},$${item.revenue}\n`;
-      });
-      csv += '\n';
-
-      csv += 'Orders Per Month\n';
-      csv += 'Month,Orders\n';
-      orders.forEach((item) => {
-        csv += `${item.month},${item.orders}\n`;
-      });
-      csv += '\n';
-
-      csv += 'User Distribution\n';
-      csv += 'Type,Count\n';
-      users.forEach((item) => {
-        csv += `${item.name},${item.value}\n`;
-      });
-      csv += '\n';
-
-      csv += 'Traffic Sources\n';
-      csv += 'Source,Visitors,Percentage\n';
-      traffic.forEach((item) => {
-        csv += `${item.source},${item.visitors},${item.percentage}%\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `dashboard-export-${new Date().toISOString().split('T')[0]}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Export failed:', error);
-      alert('Failed to export data. Please try again.');
-    }
-  };
-
   return (
-    <DashboardLayout onExportCSV={handleExportCSV}>
-      <div className="min-h-screen bg-linear-to-br from-zinc-50 via-white to-zinc-50 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-800">
-        <div className="space-y-8 p-4 sm:p-6 lg:p-8">
-          {/* Welcome Banner */}
-
-          
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50 dark:bg-zinc-950">
+        <div className="space-y-6 p-4 sm:p-6 lg:p-8">
           <section>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Overview
               </h2>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Key performance indicators for your business
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Track your business performance at a glance
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {kpis.map((k) => (
                 <KpiCard
                   key={k.id}
@@ -176,33 +116,29 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          
-          <StatsComparison />
-
-          
           <section>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Analytics
               </h2>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Detailed insights and trends
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Detailed insights and performance trends
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              <div className="col-span-1 overflow-hidden rounded-2xl border border-zinc-200/50 bg-white/80 backdrop-blur-sm p-6 shadow-lg shadow-zinc-200/50 transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 dark:border-zinc-700/50 dark:bg-zinc-800/80 dark:shadow-zinc-900/50 dark:hover:shadow-zinc-900/50 lg:col-span-2">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+              <div className="col-span-1 overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 lg:col-span-2">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                       Revenue Over Time
                     </h3>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Monthly revenue trends
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Monthly revenue growth trends
                     </p>
                   </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white">
                     <svg
-                      className="h-6 w-6"
+                      className="h-5 w-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -219,19 +155,19 @@ export default function DashboardPage() {
                 <RevenueLineChart />
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white/80 backdrop-blur-sm p-6 shadow-lg shadow-zinc-200/50 transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 dark:border-zinc-700/50 dark:bg-zinc-800/80 dark:shadow-zinc-900/50 dark:hover:shadow-zinc-900/50">
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                       User Distribution
                     </h3>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                      By subscription type
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      By subscription tier
                     </p>
                   </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/30">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600 text-white">
                     <svg
-                      className="h-6 w-6"
+                      className="h-5 w-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -250,21 +186,20 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          
-          <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white/80 backdrop-blur-sm p-6 shadow-lg shadow-zinc-200/50 transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 dark:border-zinc-700/50 dark:bg-zinc-800/80 dark:shadow-zinc-900/50 dark:hover:shadow-zinc-900/50">
+          <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               <div className="mb-6 flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Orders Per Month
                   </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                    Monthly order volume
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Monthly order volume trends
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600 text-white">
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -281,19 +216,19 @@ export default function DashboardPage() {
               <OrdersBarChart />
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white/80 backdrop-blur-sm p-6 shadow-lg shadow-zinc-200/50 transition-all duration-300 hover:shadow-xl hover:shadow-zinc-200/50 dark:border-zinc-700/50 dark:bg-zinc-800/80 dark:shadow-zinc-900/50 dark:hover:shadow-zinc-900/50">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               <div className="mb-6 flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Traffic Sources
                   </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     Visitor acquisition channels
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-600 text-white">
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

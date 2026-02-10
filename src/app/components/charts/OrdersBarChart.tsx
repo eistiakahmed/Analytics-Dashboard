@@ -11,7 +11,8 @@ import {
 } from 'recharts';
 import { api, OrdersData } from '@/lib/api';
 import ChartSkeleton from '../ChartSkeleton';
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hook';
+
 
 const sampleData: OrdersData[] = [
   { month: 'Jan', orders: 120 },
@@ -46,7 +47,7 @@ export default function OrdersBarChart() {
         }
       } catch (err) {
         if (mounted) {
-          // Use sample data as fallback - no error shown
+          
           console.warn('API not available, using sample data:', err);
         }
       } finally {
@@ -114,7 +115,7 @@ export default function OrdersBarChart() {
               padding: '12px',
             }}
             labelStyle={{ fontWeight: 600, marginBottom: '4px' }}
-            formatter={(value: number) => [value.toLocaleString(), 'Orders']}
+            formatter={(value: number | undefined) => [value?.toLocaleString() ?? '0', 'Orders']}
             cursor={{ fill: 'rgba(168, 85, 247, 0.1)' }}
           />
           <Bar

@@ -40,10 +40,10 @@
     { "name": "Enterprise", "value": 1000 }
   ],
   "stats": {
-    "totalRevenue": 229000,
-    "totalUsers": 11000,
-    "orders": 3180,
-    "conversionRate": 3.8,
+    "totalRevenue": 54230,
+    "totalUsers": 1245,
+    "orders": 342,
+    "conversionRate": 4.3,
     "revenueDelta": 8.6,
     "usersDelta": -1.2,
     "ordersDelta": 2.3,

@@ -53,7 +53,7 @@ export default function TrafficSourceChart() {
   if (loading) return <ChartSkeleton />;
 
   return (
-    <div className="h-64 w-full">
+    <div className="h-70 w-full">
       <ResponsiveContainer>
         <PieChart>
           <Pie
@@ -63,9 +63,10 @@ export default function TrafficSourceChart() {
             cx="50%"
             cy="50%"
             outerRadius={80}
-            label={({ percentage }) => `${percentage}%`}
+            label={(entry: any) => `${entry.percentage}%`}
             animationDuration={1000}
           >
+            
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
@@ -81,8 +82,8 @@ export default function TrafficSourceChart() {
               boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
               padding: '12px',
             }}
-            formatter={(value: number) => [
-              `${value.toLocaleString()} visitors`,
+            formatter={(value: number | undefined) => [
+              `${value?.toLocaleString() ?? '0'} visitors`,
               'Visitors',
             ]}
           />

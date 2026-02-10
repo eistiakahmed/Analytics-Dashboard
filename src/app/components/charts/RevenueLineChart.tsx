@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { api, RevenueData } from '@/lib/api';
 import ChartSkeleton from '../ChartSkeleton';
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@/store/hook';
 
 const sampleData: RevenueData[] = [
   { month: 'Jan', revenue: 8000 },
@@ -46,7 +46,6 @@ export default function RevenueLineChart() {
         }
       } catch (err) {
         if (mounted) {
-          // Use sample data as fallback - no error shown
           console.warn('API not available, using sample data:', err);
         }
       } finally {
@@ -104,7 +103,7 @@ export default function RevenueLineChart() {
             tick={{ fontSize: 12, fill: '#71717a' }}
             tickLine={false}
             axisLine={{ stroke: '#e5e7eb' }}
-            tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+            tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
           />
           <Tooltip
             contentStyle={{
@@ -115,8 +114,8 @@ export default function RevenueLineChart() {
               padding: '12px',
             }}
             labelStyle={{ fontWeight: 600, marginBottom: '4px' }}
-            formatter={(value: number) => [
-              `$${value.toLocaleString()}`,
+            formatter={(value: number | undefined) => [
+              `${value?.toLocaleString() ?? '0'}`,
               'Revenue',
             ]}
             cursor={{

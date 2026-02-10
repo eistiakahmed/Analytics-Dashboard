@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { setDateRange, setUserType } from '@/store/store';
 import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { FaAngleDown } from 'react-icons/fa';
 
 export default function Header({
   onToggleSidebar,
@@ -33,16 +34,16 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-10 border-b border-zinc-200/50 bg-white/80 backdrop-blur-xl px-4 py-4 shadow-sm dark:border-zinc-700/50 dark:bg-zinc-900/80 sm:px-6">
-      <div className="flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-10 h-18.25 border-b border-gray-200 bg-white px-4 sm:px-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="flex h-full items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <button
             onClick={onToggleSidebar}
-            className="rounded-xl p-2 transition-all duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 lg:hidden"
+            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-gray-300 lg:hidden"
             aria-label="Toggle sidebar"
           >
             <svg
-              className="h-6 w-6 text-zinc-700 dark:text-zinc-300"
+              className="h-6 w-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -57,11 +58,11 @@ export default function Header({
           </button>
 
           <div className="hidden sm:block">
-            <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
               Dashboard
             </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              Welcome back! Here &#39;s your overview
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Welcome back, here&#39;s your overview
             </p>
           </div>
         </div>
@@ -71,15 +72,15 @@ export default function Header({
             <select
               value={dateRange}
               onChange={(e) => dispatch(setDateRange(e.target.value))}
-              className="appearance-none rounded-xl border border-zinc-300 bg-white pl-4 pr-10 py-2.5 text-sm font-medium text-zinc-700 shadow-sm transition-all duration-200 hover:border-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+              className="appearance-none rounded-lg border border-gray-300 bg-white pl-3 pr-9 py-2 text-sm font-medium text-gray-700 hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-200 dark:hover:border-zinc-600"
             >
               <option value="7d">Last 7 days</option>
               <option value="30d">Last 30 days</option>
               <option value="12m">Last 12 months</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
               <svg
-                className="h-4 w-4 text-zinc-500"
+                className="h-4 w-4 text-gray-500 dark:text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -94,20 +95,21 @@ export default function Header({
             </div>
           </div>
 
+          {/* User Type Filter */}
           <div className="relative hidden sm:block">
             <select
               value={userType || ''}
               onChange={(e) => dispatch(setUserType(e.target.value || null))}
-              className="appearance-none rounded-xl border border-zinc-300 bg-white pl-4 pr-10 py-2.5 text-sm font-medium text-zinc-700 shadow-sm transition-all duration-200 hover:border-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+              className="appearance-none rounded-lg border border-gray-300 bg-white pl-3 pr-9 py-2 text-sm font-medium text-gray-700 hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-200 dark:hover:border-zinc-600"
             >
               <option value="">All Users</option>
               <option value="free">Free</option>
               <option value="premium">Premium</option>
               <option value="enterprise">Enterprise</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
               <svg
-                className="h-4 w-4 text-zinc-500"
+                className="h-4 w-4 text-gray-500 dark:text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -122,18 +124,15 @@ export default function Header({
             </div>
           </div>
 
+          {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
-            className="rounded-xl p-2.5 transition-all duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-gray-300"
             aria-label="Toggle dark mode"
             title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? (
-              <svg
-                className="h-5 w-5 text-yellow-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
                   d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
@@ -141,11 +140,7 @@ export default function Header({
                 />
               </svg>
             ) : (
-              <svg
-                className="h-5 w-5 text-zinc-700 dark:text-zinc-300"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
               </svg>
             )}
@@ -218,24 +213,16 @@ export default function Header({
               className="flex items-center gap-2 rounded-xl p-1.5 transition-all duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-blue-600 to-indigo-600 text-sm font-bold text-white shadow-lg">
-                A
+                <img
+                  src="https://i.ibb.co.com/PGd67LXV/download-15.jpg"
+                  alt=""
+                  className="w-10 h-10 rounded-full"
+                />
               </div>
               <span className="hidden text-sm font-medium text-zinc-900 dark:text-white sm:inline">
                 Admin
               </span>
-              <svg
-                className="hidden h-4 w-4 text-zinc-500 sm:block"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              <FaAngleDown className="hidden h-4 w-4 text-zinc-500 sm:block" />
             </button>
             {showProfile && (
               <div className="absolute right-0 top-14 z-50 w-56 rounded-xl border border-zinc-200 bg-white p-2 shadow-2xl dark:border-zinc-700 dark:bg-zinc-800">
